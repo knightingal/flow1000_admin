@@ -41,6 +41,7 @@ class AlbumIndexState extends State<AlbumIndexPage> {
   // late List<Slot> slot;
 
   final int coverPadding = 8;
+  final int titleHeight = 32;
   late SlotGroup slotGroup;
 
   @override
@@ -59,7 +60,8 @@ class AlbumIndexState extends State<AlbumIndexPage> {
         albumInfo.realWidth = coverWidth;
 
         albumInfo.frameWidth = width / length;
-        albumInfo.frameHeight = albumInfo.realHeight + coverPadding;
+        albumInfo.frameHeight =
+            albumInfo.realHeight + coverPadding + titleHeight;
 
         slotGroup.insertSlotItem(SlotItem(i, albumInfo.frameHeight));
       }
@@ -92,14 +94,27 @@ class AlbumIndexState extends State<AlbumIndexPage> {
               );
             },
             child: Container(
+              height: albumInfoList[index].frameHeight,
+              width: albumInfoList[index].frameWidth,
               padding: EdgeInsets.all(coverPadding.toDouble() / 2),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(12.0),
-                child: Image.network(
-                  key: Key("image-$index"),
-                  albumInfoList[index].toCoverUrl(),
-                  width: albumInfoList[index].realWidth,
-                  height: albumInfoList[index].realHeight,
+              color: Colors.amber,
+              child: Card(
+                child: Column(
+                  children: [
+                    Expanded(
+                      flex: 1,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(12.0),
+                        child: Image.network(
+                          key: Key("image-$index"),
+                          albumInfoList[index].toCoverUrl(),
+                          width: albumInfoList[index].realWidth,
+                          height: albumInfoList[index].realHeight,
+                        ),
+                      ),
+                    ),
+                    Expanded(flex: 0, child: Text("title here")),
+                  ],
                 ),
               ),
             ),
