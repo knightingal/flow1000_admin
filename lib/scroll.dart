@@ -144,18 +144,24 @@ class CustomScrollViewWrap extends StatelessWidget {
           ),
         ),
         child: SizedBox.expand(
-          child: Center(
-            child: Text(
-              "CustomScrollView",
-              style: TextStyle(
-                color: Theme.of(context).colorScheme.onSurface,
-                fontSize: 20.0,
+          child: Align(
+            alignment: Alignment.bottomCenter,
+            child: SizedBox(
+              height: kToolbarHeight,
+              child: Center(
+                child: Text(
+                  "CustomScrollView",
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.onSurface,
+                    fontSize: 20.0,
+                  ),
+                ),
               ),
             ),
+          ).frosted(
+            blur: 20.0,
+            frostColor: Theme.of(context).colorScheme.primary,
           ),
-        ).frosted(
-          blur: 20.0,
-          frostColor: Theme.of(context).colorScheme.primary,
         ),
       ),
     );
