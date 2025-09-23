@@ -24,6 +24,7 @@ class AlbumContentPage extends StatefulWidget {
 
 class AlbumContentPageState extends State<AlbumContentPage> {
   late double width;
+  late double top;
   Future<SectionDetail> fetchAlbumIndex() async {
     final response = await http.get(
       Uri.parse(albumContentUrl(widget.albumIndex)),
@@ -80,6 +81,8 @@ class AlbumContentPageState extends State<AlbumContentPage> {
   @override
   Widget build(BuildContext context) {
     width = MediaQuery.of(context).size.width;
+    // height of status bar
+    top = MediaQuery.of(context).padding.top;
     AppBar? appBar;
     Widget body;
     if (albumInfoList == null || albumInfoList!.pics.isEmpty) {
