@@ -107,6 +107,7 @@ class CustomScrollViewWrap extends StatelessWidget {
     required this.totalLength,
     this.withTitle = false,
     this.showBaseline = false,
+    this.actions = const [],
   });
 
   final SlotGroup slots;
@@ -119,12 +120,14 @@ class CustomScrollViewWrap extends StatelessWidget {
 
   final bool showBaseline;
 
+  final List<Widget> actions;
+
   @override
   Widget build(BuildContext context) {
     // const Key centerKey = ValueKey<String>('bottom-sliver-list');
 
     var title = SliverAppBar(
-      actions: [IconButton(icon: const Icon(Icons.menu), onPressed: () {})],
+      actions: actions,
       // title: const Text("CustomScrollView"),
       expandedHeight: kToolbarHeight,
       collapsedHeight: kToolbarHeight,

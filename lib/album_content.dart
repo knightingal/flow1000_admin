@@ -88,6 +88,14 @@ class AlbumContentPageState extends State<AlbumContentPage> {
     } else {
       body = CustomScrollViewWrap(
         withTitle: true,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.subscriptions),
+            onPressed: () {
+              subscribeAlbum();
+            },
+          ),
+        ],
         slots: slotGroup,
         builder: (BuildContext context, int index) {
           var url = albumInfoList!.pics[index].toUrl(albumInfoList!);
