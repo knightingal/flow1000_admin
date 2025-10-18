@@ -104,6 +104,8 @@ class AlbumIndexState extends State<AlbumIndexPage> {
     }
   }
 
+  final bool useCard = true;
+
   @override
   Widget build(BuildContext context) {
     width = MediaQuery.of(context).size.width;
@@ -132,49 +134,92 @@ class AlbumIndexState extends State<AlbumIndexPage> {
               width: albumInfoList[index].frameWidth,
               child: Align(
                 alignment: Alignment.center,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(12.0),
-                  child: Container(
-                    width: albumInfoList[index].cardWidth,
-                    height: albumInfoList[index].cardHeight,
-                    color: Theme.of(context).colorScheme.primaryContainer,
-                    child: Stack(
-                      children: [
-                        Align(
-                          alignment: Alignment.topCenter,
-                          child: ClipRRect(
+                child:
+                    useCard
+                        ? Card(
+                          shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12.0),
-                            child: _generateImageContainer(index),
                           ),
-                        ),
-                        Align(
-                          alignment: Alignment.bottomCenter,
-                          child: Container(
-                            height: titleHeight.toDouble(),
-                            padding: EdgeInsets.fromLTRB(16, 16, 16, 16),
-                            child: Align(
-                              alignment: Alignment.centerLeft,
-                              child: Text(
-                                albumInfoList[index].title,
-                                style: TextStyle(
-                                  fontSize:
-                                      Theme.of(
-                                        context,
-                                      ).textTheme.bodyLarge!.fontSize,
-                                  color:
-                                      Theme.of(
-                                        context,
-                                      ).colorScheme.onPrimaryContainer,
-                                ),
-                                overflow: TextOverflow.ellipsis,
+                          color: Theme.of(context).colorScheme.primaryContainer,
+                          child: Column(
+                            children: [
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(12.0),
+                                child: _generateImageContainer(index),
                               ),
+                              Container(
+                                height: titleHeight.toDouble(),
+                                padding: EdgeInsets.fromLTRB(16, 16, 16, 16),
+                                child: Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                    albumInfoList[index].title,
+                                    style: TextStyle(
+                                      fontSize:
+                                          Theme.of(
+                                            context,
+                                          ).textTheme.bodyLarge!.fontSize,
+                                      color:
+                                          Theme.of(
+                                            context,
+                                          ).colorScheme.onPrimaryContainer,
+                                    ),
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        )
+                        : ClipRRect(
+                          borderRadius: BorderRadius.circular(12.0),
+                          child: Container(
+                            width: albumInfoList[index].cardWidth,
+                            height: albumInfoList[index].cardHeight,
+                            color:
+                                Theme.of(context).colorScheme.primaryContainer,
+                            child: Stack(
+                              children: [
+                                Align(
+                                  alignment: Alignment.topCenter,
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(12.0),
+                                    child: _generateImageContainer(index),
+                                  ),
+                                ),
+                                Align(
+                                  alignment: Alignment.bottomCenter,
+                                  child: Container(
+                                    height: titleHeight.toDouble(),
+                                    padding: EdgeInsets.fromLTRB(
+                                      16,
+                                      16,
+                                      16,
+                                      16,
+                                    ),
+                                    child: Align(
+                                      alignment: Alignment.centerLeft,
+                                      child: Text(
+                                        albumInfoList[index].title,
+                                        style: TextStyle(
+                                          fontSize:
+                                              Theme.of(
+                                                context,
+                                              ).textTheme.bodyLarge!.fontSize,
+                                          color:
+                                              Theme.of(
+                                                context,
+                                              ).colorScheme.onPrimaryContainer,
+                                        ),
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                         ),
-                      ],
-                    ),
-                  ),
-                ),
               ),
             ),
           );
