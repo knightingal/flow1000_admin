@@ -90,7 +90,11 @@ class AlbumContentPageState extends State<AlbumContentPage> {
         withTitle: true,
         actions: [
           IconButton(
-            icon: const Icon(Icons.subscriptions),
+            icon: switch (albumInfoList!.clientStatus) {
+              "NONE" => const Icon(Icons.download_outlined),
+              "PENDING" => const Icon(Icons.download),
+              _ => const Icon(Icons.download_outlined),
+            },
             onPressed: () {
               subscribeAlbum();
             },
