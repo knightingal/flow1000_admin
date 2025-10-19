@@ -15,6 +15,7 @@ class SectionDetail {
   final String album;
   final String title;
   final String timeStampe;
+  final String clientStatus;
 
   SectionDetail({
     required this.dirName,
@@ -23,6 +24,7 @@ class SectionDetail {
     required this.album,
     required this.title,
     required this.timeStampe,
+    required this.clientStatus,
   });
 
   factory SectionDetail.fromJson(Map<String, dynamic> json) {
@@ -37,6 +39,7 @@ class SectionDetail {
       album: json["album"],
       title: json["title"],
       timeStampe: json["mtime"],
+      clientStatus: json["clientStatus"],
     );
   }
 }
