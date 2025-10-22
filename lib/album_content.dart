@@ -100,6 +100,7 @@ class AlbumContentPageState extends State<AlbumContentPage> {
             },
           ),
         ],
+        titleText: albumInfoList!.title,
         slots: slotGroup,
         builder: (BuildContext context, int index) {
           var url = albumInfoList!.pics[index].toUrl(albumInfoList!);
