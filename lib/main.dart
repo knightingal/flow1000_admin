@@ -95,6 +95,7 @@ class MyHomePage extends StatelessWidget {
           // the App.build method, and use it to set our appbar title.
           title: Text(title),
           bottom: const TabBar(
+            isScrollable: true,
             tabs: [
               // Tab(text: "single"),
               Tab(text: "main"),
