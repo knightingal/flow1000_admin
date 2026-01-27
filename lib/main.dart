@@ -1,22 +1,14 @@
 import 'package:flow1000_admin/album_index.dart';
 import 'package:flow1000_admin/cover_dialog.dart';
-// ignore: unused_import
-import 'package:flow1000_admin/float_list.dart';
-import 'package:flow1000_admin/scroll.dart';
 import 'package:flow1000_admin/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 void main() {
-  // ignore: dead_code
-  if (true) {
-    runApp(const MyApp());
-    // ignore: dead_code
-  } else {
-    // runApp(FloadApp());
-    // runApp(CustomScrollViewTopPaddingExampleApp());
-    runApp(CustomScrollViewExampleApp());
-  }
+  runApp(const MyApp());
+  // runApp(FloadApp());
+  // runApp(CustomScrollViewTopPaddingExampleApp());
+  // runApp(CustomScrollViewExampleApp());
 }
 
 class MyApp extends StatelessWidget {
