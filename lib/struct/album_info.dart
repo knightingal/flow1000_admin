@@ -6,6 +6,7 @@ Map<String, String> albumMap = {
   "1805": "1805",
   "1806": "1806",
   "1807": "1807",
+  "1808": "1808",
 };
 
 class SectionDetail {
