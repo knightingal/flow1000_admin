@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flow1000_admin/album_content.dart';
 import 'package:flow1000_admin/config.dart';
 import 'package:flow1000_admin/struct/album_info.dart';
 import 'package:flow1000_admin/struct/slot.dart';
@@ -54,7 +55,20 @@ class MasonryAlbumIndexState extends State<MasonryAlbumIndex> {
                 crossAxisSpacing: 0,
                 itemCount: dataList.length,
                 itemBuilder: (context, index) {
-                  return buildCard(snapshot.data![index]);
+                  return GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder:
+                              (context) => AlbumContentPage(
+                                albumIndex: snapshot.data![index].index,
+                              ),
+                        ),
+                      );
+                    },
+                    child: buildCard(snapshot.data![index]),
+                  );
                 },
               );
             },
