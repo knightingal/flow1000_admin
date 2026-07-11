@@ -1,4 +1,3 @@
-import 'package:flow1000_admin/album_index.dart';
 import 'package:flow1000_admin/cover_dialog.dart';
 import 'package:flow1000_admin/masonry_album_index.dart';
 import 'package:flow1000_admin/theme.dart';
