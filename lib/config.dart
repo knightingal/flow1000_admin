@@ -6,3 +6,5 @@ String albumContentUrl(int index) =>
 
 String subscribeAlbumUrl(int index) =>
     "${apiHost()}/local1000/downloadSection?id=$index";
+
+String shipIndexUrl() => "${apiHost()}/ship/listShips";
