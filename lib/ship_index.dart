@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:flow1000_admin/config.dart';
 import 'package:flow1000_admin/struct/ship.dart';
@@ -26,8 +27,66 @@ class ShipIndexPageState extends State<ShipIndexPage> {
     }
   }
 
+  late Future<List<Ship>> futureDataList;
+
+  @override
+  void initState() {
+    super.initState();
+    futureDataList = fetchShipList();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return SizedBox.shrink();
+    Widget body = FutureBuilder<List<Ship>>(
+      future: futureDataList,
+      builder: (context, snapshot) {
+        if (snapshot.hasData && snapshot.data!.isNotEmpty) {
+          return ListView.builder(
+            itemCount: snapshot.data!.length,
+            prototypeItem: DirItem(
+              index: 0,
+              title: snapshot.data!.first.shipName,
+              tapCallback: (index, title) {},
+            ),
+            itemBuilder: (context, index) {
+              return DirItem(
+                index: index,
+                title: snapshot.data![index].shipName,
+                tapCallback: (index, title) {},
+              );
+            },
+          );
+        } else {
+          return const SizedBox.shrink();
+        }
+      },
+    );
+
+    return body;
+  }
+}
+
+class DirItem extends StatelessWidget {
+  final String title;
+
+  final int index;
+  final void Function(int index, String title) tapCallback;
+
+  const DirItem({
+    super.key,
+    required this.index,
+    required this.title,
+    required this.tapCallback,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      onTap: () {
+        log("click $title");
+        tapCallback(index, title);
+      },
+      title: Text(title),
+    );
   }
 }
