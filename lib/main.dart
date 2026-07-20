@@ -1,5 +1,6 @@
 import 'package:flow1000_admin/cover_dialog.dart';
 import 'package:flow1000_admin/masonry_album_index.dart';
+import 'package:flow1000_admin/ship_index.dart';
 import 'package:flow1000_admin/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -109,7 +110,7 @@ class MyHomePage extends StatelessWidget {
             MasonryAlbumIndex(album: "1806"),
             MasonryAlbumIndex(album: "1807"),
             MasonryAlbumIndex(album: "1808"),
-            MasonryAlbumIndex(album: "ship"),
+            ShipIndexPage(),
           ],
         ),
         // body: AlbumGridPage(),
