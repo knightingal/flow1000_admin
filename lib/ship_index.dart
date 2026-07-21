@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:flow1000_admin/album_content.dart';
 import 'package:flow1000_admin/config.dart';
 import 'package:flow1000_admin/struct/ship.dart';
 import 'package:flutter/material.dart';
@@ -46,13 +47,27 @@ class ShipIndexPageState extends State<ShipIndexPage> {
             prototypeItem: DirItem(
               index: 0,
               title: snapshot.data!.first.shipName,
-              tapCallback: (index, title) {},
+              tapCallback: (index, title) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => AlbumContentPage(albumIndex: index),
+                  ),
+                );
+              },
             ),
             itemBuilder: (context, index) {
               return DirItem(
                 index: index,
                 title: snapshot.data![index].shipName,
-                tapCallback: (index, title) {},
+                tapCallback: (index, title) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => AlbumContentPage(albumIndex: index),
+                    ),
+                  );
+                },
               );
             },
           );
