@@ -64,7 +64,7 @@ class SectoinContentPageState extends State<SectoinContentPage> {
           var dataList = snapshot.data!.pics;
           return LayoutBuilder(
             builder: (context, constraints) {
-              var crossAxisCount = 2;
+              var crossAxisCount = 1;
               return MasonryGridView.count(
                 crossAxisCount: crossAxisCount,
                 mainAxisSpacing: 0,
