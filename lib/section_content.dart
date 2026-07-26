@@ -73,9 +73,17 @@ class SectoinContentPageState extends State<SectoinContentPage> {
                 itemBuilder: (context, index) {
                   var url = dataList[index].toUrl(sectionInfo);
                   if (url.endsWith(".avif")) {
-                    return AvifImage.network(key: Key("content-$index"), url);
+                    return AspectRatio(
+                      aspectRatio:
+                          dataList[index].width / dataList[index].height,
+                      child: AvifImage.network(key: Key("content-$index"), url),
+                    );
                   } else {
-                    return Image.network(key: Key("content-$index"), url);
+                    return AspectRatio(
+                      aspectRatio:
+                          dataList[index].width / dataList[index].height,
+                      child: Image.network(key: Key("content-$index"), url),
+                    );
                   }
                 },
               );
