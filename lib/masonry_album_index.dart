@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:flow1000_admin/album_content.dart';
 import 'package:flow1000_admin/config.dart';
+import 'package:flow1000_admin/section_content.dart';
 import 'package:flow1000_admin/struct/album_info.dart';
 import 'package:flow1000_admin/struct/slot.dart';
 import 'package:flutter/material.dart';
@@ -61,7 +61,7 @@ class MasonryAlbumIndexState extends State<MasonryAlbumIndex> {
                         context,
                         MaterialPageRoute(
                           builder:
-                              (context) => AlbumContentPage(
+                              (context) => SectoinContentPage(
                                 albumIndex: snapshot.data![index].index,
                               ),
                         ),
