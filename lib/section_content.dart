@@ -2,14 +2,13 @@ import 'dart:convert';
 
 // ignore: unused_import
 import 'package:blur/blur.dart';
-import 'package:flow1000_admin/scroll.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_avif/flutter_avif.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:http/http.dart' as http;
 
 import 'config.dart';
 import 'struct/album_info.dart';
-import 'struct/slot.dart';
 
 class SectoinContentPage extends StatefulWidget {
   const SectoinContentPage({super.key, required this.albumIndex});
@@ -38,34 +37,12 @@ class SectoinContentPageState extends State<SectoinContentPage> {
     }
   }
 
-  SectionDetail? albumInfoList;
-  SlotGroup slotGroup = SlotGroup.fromCount(1, 0);
+  late Future<SectionDetail> sectionDetail;
 
   @override
   void initState() {
     super.initState();
-    fetchAlbumIndex().then((albumInfoList) {
-      for (int i = 0; i < albumInfoList.pics.length; i++) {
-        ImgDetail albumInfo = albumInfoList.pics[i];
-        double coverHeight;
-        double coverWidth;
-        if (slotGroup.slots.length == 1 && width > albumInfo.width) {
-          coverWidth = albumInfo.width.toDouble();
-          coverHeight = albumInfo.height.toDouble();
-        } else {
-          coverWidth = width / slotGroup.slots.length;
-          coverHeight = albumInfo.height * (coverWidth / albumInfo.width);
-        }
-
-        albumInfo.realHeight = coverHeight;
-        albumInfo.realWidth = coverWidth;
-
-        slotGroup.insertSlotItem(SlotItem(i, albumInfo.realHeight));
-      }
-      setState(() {
-        this.albumInfoList = albumInfoList;
-      });
-    });
+    sectionDetail = fetchAlbumIndex();
   }
 
   void subscribeAlbum() async {
@@ -79,50 +56,36 @@ class SectoinContentPageState extends State<SectoinContentPage> {
   @override
   Widget build(BuildContext context) {
     width = MediaQuery.of(context).size.width;
-    // height of status bar
-    top = MediaQuery.of(context).padding.top;
-    AppBar? appBar;
-    Widget body;
-    if (albumInfoList == null || albumInfoList!.pics.isEmpty) {
-      body = Text("AlbumIndexPage");
-    } else {
-      body = CustomScrollViewWrap(
-        withTitle: true,
-        actions: [
-          IconButton(
-            icon: switch (albumInfoList!.clientStatus) {
-              "NONE" => const Icon(Icons.download_outlined),
-              "PENDING" => const Icon(Icons.download),
-              _ => const Icon(Icons.download_outlined),
+    Widget body = FutureBuilder<SectionDetail>(
+      future: sectionDetail,
+      builder: (context, snapshot) {
+        if (snapshot.hasData && snapshot.data!.pics.isNotEmpty) {
+          var sectionInfo = snapshot.data!;
+          var dataList = snapshot.data!.pics;
+          return LayoutBuilder(
+            builder: (context, constraints) {
+              var crossAxisCount = 2;
+              return MasonryGridView.count(
+                crossAxisCount: crossAxisCount,
+                mainAxisSpacing: 0,
+                crossAxisSpacing: 0,
+                itemCount: dataList.length,
+                itemBuilder: (context, index) {
+                  var url = dataList[index].toUrl(sectionInfo);
+                  if (url.endsWith(".avif")) {
+                    return AvifImage.network(key: Key("content-$index"), url);
+                  } else {
+                    return Image.network(key: Key("content-$index"), url);
+                  }
+                },
+              );
             },
-            onPressed: () {
-              subscribeAlbum();
-            },
-          ),
-        ],
-        titleText: albumInfoList!.title,
-        slots: slotGroup,
-        builder: (BuildContext context, int index) {
-          var url = albumInfoList!.pics[index].toUrl(albumInfoList!);
-          if (url.endsWith(".avif")) {
-            return AvifImage.network(
-              key: Key("content-$index"),
-              url,
-              width: albumInfoList!.pics[index].realWidth,
-              height: albumInfoList!.pics[index].realHeight,
-            );
-          } else {
-            return Image.network(
-              key: Key("content-$index"),
-              url,
-              width: albumInfoList!.pics[index].realWidth,
-              height: albumInfoList!.pics[index].realHeight,
-            );
-          }
-        },
-        totalLength: albumInfoList!.pics.length,
-      );
-    }
-    return Scaffold(body: body, appBar: appBar);
+          );
+        } else {
+          return SizedBox.shrink();
+        }
+      },
+    );
+    return Scaffold(body: body);
   }
 }
