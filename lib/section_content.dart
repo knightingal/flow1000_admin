@@ -56,6 +56,8 @@ class SectoinContentPageState extends State<SectoinContentPage> {
   @override
   Widget build(BuildContext context) {
     width = MediaQuery.of(context).size.width;
+
+    AppBar appBar = AppBar(title: Text(""));
     Widget body = FutureBuilder<SectionDetail>(
       future: sectionDetail,
       builder: (context, snapshot) {
@@ -94,6 +96,6 @@ class SectoinContentPageState extends State<SectoinContentPage> {
         }
       },
     );
-    return Scaffold(body: body);
+    return Scaffold(body: body, appBar: appBar);
   }
 }
