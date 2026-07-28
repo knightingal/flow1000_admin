@@ -74,18 +74,43 @@ class SectoinContentPageState extends State<SectoinContentPage> {
                 itemCount: dataList.length,
                 itemBuilder: (context, index) {
                   var url = dataList[index].toUrl(sectionInfo);
-                  if (url.endsWith(".avif")) {
-                    return AspectRatio(
-                      aspectRatio:
-                          dataList[index].width / dataList[index].height,
-                      child: AvifImage.network(key: Key("content-$index"), url),
-                    );
+
+                  if (dataList[index].width < constraints.maxWidth) {
+                    if (url.endsWith(".avif")) {
+                      return SizedBox.fromSize(
+                        size: Size.fromHeight(
+                          dataList[index].height.toDouble(),
+                        ),
+                        child: AvifImage.network(
+                          key: Key("content-$index"),
+                          url,
+                        ),
+                      );
+                    } else {
+                      return SizedBox.fromSize(
+                        size: Size.fromHeight(
+                          dataList[index].height.toDouble(),
+                        ),
+                        child: Image.network(key: Key("content-$index"), url),
+                      );
+                    }
                   } else {
-                    return AspectRatio(
-                      aspectRatio:
-                          dataList[index].width / dataList[index].height,
-                      child: Image.network(key: Key("content-$index"), url),
-                    );
+                    if (url.endsWith(".avif")) {
+                      return AspectRatio(
+                        aspectRatio:
+                            dataList[index].width / dataList[index].height,
+                        child: AvifImage.network(
+                          key: Key("content-$index"),
+                          url,
+                        ),
+                      );
+                    } else {
+                      return AspectRatio(
+                        aspectRatio:
+                            dataList[index].width / dataList[index].height,
+                        child: Image.network(key: Key("content-$index"), url),
+                      );
+                    }
                   }
                 },
               );
